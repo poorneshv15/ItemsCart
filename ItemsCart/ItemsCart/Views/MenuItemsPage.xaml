@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ItemsCart.Views.MenuItemsPage"
+			 x:Name="MenuItemsView"
+			 Title="Menu"
+			 xmlns:Vms="clr-namespace:ItemsCart.ViewModels"
+			 BackgroundColor="#FFB900">
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Cart" Command="{Binding CartCommand}" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Color x:Key="RefreshColor">Orange</Color>
+			<!--<converters:ImageSourceConverter x:Key="ImageSourceConverter"/>-->
+			<Vms:MenuItemsPageViewModel x:Key="vm"></Vms:MenuItemsPageViewModel>
+
+			<Style x:Key="TitleStyle" TargetType="Label">
+				<Setter Property="FontAttributes" Value="Bold"/>
+				<Setter Property="TextColor" Value="Teal" />
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.BindingContext>
+		<Vms:MenuItemsPageViewModel/>
+	</ContentPage.BindingContext>
+	
+	<ContentPage.Content>
+		<ListView 
+				ItemsSource="{Binding MenuList}"
+				CachingStrategy="RecycleElement"
+				Style="{StaticResource ItemListStyle}">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<ViewCell.ContextActions>
+							<MenuItem Text="Add to cart"
+									  CommandParameter="{Binding .}"
+									  Command="{Binding Source={x:Reference MenuItemsView}, Path=BindingContext.AddToCartCommand }"/>
+						</ViewCell.ContextActions>
+						<Frame Style="{StaticResource MenuItemFrameStyle}">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="1*"/>
+									<RowDefinition Height ="1*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="4*"/>
+									<ColumnDefinition Width="1*"/>
+								</Grid.ColumnDefinitions>
+															
+								<Label  Grid.Column="0"
+										Grid.Row="0"
+										FontSize="Large"
+										Style="{StaticResource TitleStyle}"
+										Text="{Binding Name}"
+										Margin="0,5,0,5"/>
+								<Label
+										Grid.Column="0"
+										Grid.Row="1"
+										FontSize="Large"
+										TextColor="Black"
+										Margin="0,5,0,5"
+										Text="{Binding Price,
+												StringFormat='Rs {0:F2}'}"  />
+
+								<Button Text="Add"
+										HeightRequest="10"
+										CornerRadius="45"
+										CommandParameter="{Binding .}"
+										Command="{Binding Source={x:Reference MenuItemsView}, Path=BindingContext.AddToCartCommand }"
+										Grid.Column="1"
+										Grid.Row="1"/>
+							</Grid>
+						</Frame>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</ContentPage.Content>
+	
+</ContentPage>
