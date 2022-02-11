@@ -1,5 +1,4 @@
-﻿using ItemsCart.Services;
-using ItemsCart.Views;
+﻿using ItemsCart.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +12,6 @@ namespace ItemsCart
 		{
 			InitializeComponent();
 
-			DependencyService.Register<MockDataStore>();
 			MainPage = new AppShell();
 		}
 

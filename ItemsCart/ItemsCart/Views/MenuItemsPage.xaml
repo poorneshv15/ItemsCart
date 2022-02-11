@@ -4,17 +4,18 @@
              x:Class="ItemsCart.Views.MenuItemsPage"
 			 x:Name="MenuItemsView"
 			 Title="Menu"
+			 xmlns:converters="clr-namespace:ItemsCart.Converter"
 			 xmlns:Vms="clr-namespace:ItemsCart.ViewModels"
 			 BackgroundColor="#FFB900">
 
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="Cart" Command="{Binding CartCommand}" />
+		<ToolbarItem Text="View Cart" Command="{Binding CartCommand}" />
 	</ContentPage.ToolbarItems>
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<Color x:Key="RefreshColor">Orange</Color>
-			<!--<converters:ImageSourceConverter x:Key="ImageSourceConverter"/>-->
 			<Vms:MenuItemsPageViewModel x:Key="vm"></Vms:MenuItemsPageViewModel>
+			<converters:TextToColorConverter x:Key="textToColorConverter"/>
 
 			<Style x:Key="TitleStyle" TargetType="Label">
 				<Setter Property="FontAttributes" Value="Bold"/>
@@ -67,6 +68,7 @@
 												StringFormat='Rs {0:F2}'}"  />
 
 								<Button Text="Add"
+										BackgroundColor="{Binding ., Converter={StaticResource textToColorConverter}}"
 										HeightRequest="10"
 										CornerRadius="45"
 										CommandParameter="{Binding .}"

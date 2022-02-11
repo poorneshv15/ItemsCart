@@ -60,6 +60,16 @@ namespace ItemsCart.ViewModels
 					Name = "Grapes",
 					Price = 45
 				},
+				new MenuItem
+				{
+					Name = "Tea",
+					Price = 30
+				},
+				new MenuItem
+				{
+					Name = "Coffee",
+					Price = 45
+				},
 			};
 		}
 		#endregion Stub
@@ -71,7 +81,14 @@ namespace ItemsCart.ViewModels
 
 		private async void OnCartMenuClickedAsync(object obj)
 		{	
-			await Application.Current.MainPage.Navigation.PushAsync(new ItemsPage(CartsList));
+			if(CartsList != null && CartsList.Count > 0)
+			{
+				await Application.Current.MainPage.Navigation.PushAsync(new ItemsPage(CartsList));
+			}
+			else
+			{
+				await Application.Current.MainPage.DisplayAlert("Alert", "Please Add Item in the Cart by clicking Add button", "OK");
+			}
 		}
 	}
 }

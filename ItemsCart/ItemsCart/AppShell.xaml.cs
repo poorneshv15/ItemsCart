@@ -11,7 +11,6 @@ namespace ItemsCart
 		public AppShell()
 		{
 			InitializeComponent();
-			Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 			Routing.RegisterRoute(nameof(MenuItemsPage), typeof(MenuItemsPage));
 		}
 
