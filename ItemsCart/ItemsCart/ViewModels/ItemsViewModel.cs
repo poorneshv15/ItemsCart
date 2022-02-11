@@ -1,10 +1,4 @@
-﻿using ItemsCart.Models;
-using ItemsCart.Views;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using System.Collections.ObjectModel;
 
 namespace ItemsCart.ViewModels
 {
@@ -40,9 +34,9 @@ namespace ItemsCart.ViewModels
 		public void OnAppearing()
 		{
 			var sumOfCost = 0.0;
-			if(CartsList != null && CartsList.Count > 0)
+			if (CartsList != null && CartsList.Count > 0)
 			{
-				foreach(var item in CartsList)
+				foreach (var item in CartsList)
 				{
 					sumOfCost += item.Price;
 				}

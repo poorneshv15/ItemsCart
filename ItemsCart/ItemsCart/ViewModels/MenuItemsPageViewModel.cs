@@ -1,12 +1,7 @@
-﻿using ItemsCart.Models;
-using ItemsCart.Views;
-using System;
-using System.Collections.Generic;
+﻿using ItemsCart.Views;
 using System.Collections.ObjectModel;
-using System.Text;
 using Xamarin.Forms;
 using MenuItem = ItemsCart.Models.MenuItem;
-using System.Threading.Tasks;
 
 namespace ItemsCart.ViewModels
 {
@@ -80,8 +75,8 @@ namespace ItemsCart.ViewModels
 		}
 
 		private async void OnCartMenuClickedAsync(object obj)
-		{	
-			if(CartsList != null && CartsList.Count > 0)
+		{
+			if (CartsList != null && CartsList.Count > 0)
 			{
 				await Application.Current.MainPage.Navigation.PushAsync(new ItemsPage(CartsList));
 			}

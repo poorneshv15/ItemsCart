@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ItemsCart.Models
+﻿namespace ItemsCart.Models
 {
 	public class MenuItem
 	{

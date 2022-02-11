@@ -1,7 +1,5 @@
-﻿using ItemsCart.ViewModels;
-using ItemsCart.Views;
+﻿using ItemsCart.Views;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace ItemsCart
