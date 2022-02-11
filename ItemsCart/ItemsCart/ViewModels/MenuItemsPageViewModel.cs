@@ -22,6 +22,20 @@ namespace ItemsCart.ViewModels
 				OnPropertyChanged("CartsList");
 			}
 		}
+
+		ObservableCollection<MenuItem> _menuList;
+		public ObservableCollection<MenuItem> MenuList
+		{
+			get { return _menuList; }
+			set
+			{
+				if (_menuList != value)
+					_menuList = value;
+				OnPropertyChanged("MenuList");
+			}
+		}
+
+
 		public MenuItemsPageViewModel()
 		{
 			LoadListItems();
@@ -82,7 +96,7 @@ namespace ItemsCart.ViewModels
 			}
 			else
 			{
-				await Application.Current.MainPage.DisplayAlert("Alert", "Please Add Item in the Cart by clicking Add button", "OK");
+				await Application.Current.MainPage.DisplayAlert("Alert", "Please add item in the cart by clicking Add button.", "OK");
 			}
 		}
 	}

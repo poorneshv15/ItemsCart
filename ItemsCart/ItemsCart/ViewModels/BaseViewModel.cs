@@ -17,18 +17,6 @@ namespace ItemsCart.ViewModels
 			set { SetProperty(ref isBusy, value); }
 		}
 
-		ObservableCollection<MenuItem> _menuList;
-		public ObservableCollection<MenuItem> MenuList
-		{
-			get { return _menuList; }
-			set
-			{
-				if (_menuList != value)
-					_menuList = value;
-				OnPropertyChanged("MenuList");
-			}
-		}
-
 
 		string title = string.Empty;
 		public string Title
