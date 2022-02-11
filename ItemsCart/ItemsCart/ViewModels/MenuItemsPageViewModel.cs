@@ -10,19 +10,11 @@ using System.Threading.Tasks;
 
 namespace ItemsCart.ViewModels
 {
-	public class MenuItemsPageViewModel : ViewModelBase
+	public class MenuItemsPageViewModel : BaseViewModel
 	{
-		ObservableCollection<MenuItem> _menuList;
-		public ObservableCollection<MenuItem> MenuList
-		{
-			get { return _menuList; }
-			set
-			{
-				if (_menuList != value)
-					_menuList = value;
-				OnPropertyChanged("MenuList");
-			}
-		}
+
+		public Command<MenuItem> AddToCartCommand { get; set; }
+		public Command CartCommand { get; set; }
 
 		ObservableCollection<MenuItem> _cartsList;
 		public ObservableCollection<MenuItem> CartsList
@@ -35,19 +27,17 @@ namespace ItemsCart.ViewModels
 				OnPropertyChanged("CartsList");
 			}
 		}
-		public Command<MenuItem> AddToCartCommand { get; set; }
-		public Command CartCommand { get; set; }
-
 		public MenuItemsPageViewModel()
 		{
 			LoadListItems();
+			CartsList = new ObservableCollection<MenuItem>();
 			AddToCartCommand = new Command<MenuItem>(OnAddItemClicked);
 			CartCommand = new Command(OnCartMenuClickedAsync);
 		}
 
+		#region Stub
 		private void LoadListItems()
 		{
-			CartsList = new ObservableCollection<MenuItem>();
 			MenuList = new ObservableCollection<MenuItem>
 			{
 				new MenuItem
@@ -72,18 +62,16 @@ namespace ItemsCart.ViewModels
 				},
 			};
 		}
+		#endregion Stub
 
-
-
-		private void OnAddItemClicked(MenuItem cartIten)
+		private void OnAddItemClicked(MenuItem cartItem)
 		{
-			CartsList.Add(cartIten);
+			CartsList.Add(cartItem);
 		}
 
-
 		private async void OnCartMenuClickedAsync(object obj)
-		{
-			await Shell.Current.GoToAsync(nameof(ItemsPage));
+		{	
+			await Application.Current.MainPage.Navigation.PushAsync(new ItemsPage(CartsList));
 		}
 	}
 }

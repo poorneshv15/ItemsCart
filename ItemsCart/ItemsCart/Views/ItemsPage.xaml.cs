@@ -3,6 +3,7 @@ using ItemsCart.ViewModels;
 using ItemsCart.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,12 @@ namespace ItemsCart.Views
 	{
 		ItemsViewModel _viewModel;
 
-		public ItemsPage()
+		public ItemsPage(ObservableCollection<Models.MenuItem> CartList)
 		{
 			InitializeComponent();
 
 			BindingContext = _viewModel = new ItemsViewModel();
+			_viewModel.CartsList = CartList;
 		}
 
 		protected override void OnAppearing()

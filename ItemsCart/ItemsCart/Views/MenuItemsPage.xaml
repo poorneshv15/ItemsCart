@@ -28,6 +28,7 @@
 	
 	<ContentPage.Content>
 		<ListView 
+				SelectionMode="None"
 				ItemsSource="{Binding MenuList}"
 				CachingStrategy="RecycleElement"
 				Style="{StaticResource ItemListStyle}">

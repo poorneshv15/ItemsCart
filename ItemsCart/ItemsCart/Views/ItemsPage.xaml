@@ -6,39 +6,53 @@
              xmlns:local="clr-namespace:ItemsCart.ViewModels"  
              xmlns:model="clr-namespace:ItemsCart.Models"  
              x:Name="BrowseItemsPage">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style x:Key="TitleStyle" TargetType="Label">
+				<Setter Property="FontAttributes" Value="Bold"/>
+				<Setter Property="TextColor" Value="Black" />
+				<Setter Property="FontSize" Value="Large"/>
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
-    </ContentPage.ToolbarItems>
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
+	<StackLayout>
+		<Frame BorderColor="Black" 			 
+		   x:DataType="local:ItemsViewModel">
+			<CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding CartsList}"
                 SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Item" Orientation="Horizontal">
-                        <Label Text="{Binding Name}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-						<Label Text="{Binding Price}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-					</StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-			<CollectionView.Footer>
-				<StackLayout Orientation="Horizontal">
-					<Label Text="Total"></Label>
-					<Label Text="{Binding TotalCartValue}"
-						   TextColor="#F04E1F"/>
-				</StackLayout>
-			</CollectionView.Footer>
-        </CollectionView>
-    </RefreshView>
+				<CollectionView.ItemTemplate>
+					<DataTemplate >
+						<StackLayout Padding="10" x:DataType="model:MenuItem" Orientation="Horizontal">
+							<Label Text="{Binding Name}" 
+							   HorizontalOptions="StartAndExpand"
+							   Margin="15,15,0,15"
+							   Style="{StaticResource TitleStyle}"/>
+							<Label 
+							Margin="15,15,0,15"
+							Text="{Binding Price,
+							StringFormat='Rs {0:F2}'}"
+							HorizontalOptions="EndAndExpand"
+							Style="{StaticResource TitleStyle}"/>
+						</StackLayout>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+		</Frame>
+		<StackLayout Orientation="Horizontal" 
+					 HorizontalOptions="Center"
+					 VerticalOptions="EndAndExpand" 
+					 Margin="15,15,0,15">
+			<Label
+						Style="{StaticResource TitleStyle}"
+						Text="Total" />
+			<Label 			
+						Text="{Binding TotalCartValue,
+						StringFormat='Rs {0:F2}'}"
+						Style="{StaticResource TitleStyle}"/>
+		</StackLayout>
+	</StackLayout>
+
+	
 </ContentPage>

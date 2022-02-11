@@ -10,75 +10,44 @@ namespace ItemsCart.ViewModels
 {
 	public class ItemsViewModel : BaseViewModel
 	{
-		private Item _selectedItem;
+		ObservableCollection<Models.MenuItem> _cartsList;
+		public ObservableCollection<Models.MenuItem> CartsList
+		{
+			get { return _cartsList; }
+			set
+			{
+				if (_cartsList != value)
+					_cartsList = value;
+				OnPropertyChanged("CartsList");
+			}
+		}
 
-		public ObservableCollection<Item> Items { get; }
-		public Command LoadItemsCommand { get; }
-		public Command AddItemCommand { get; }
-		public Command<Item> ItemTapped { get; }
+		private string totalCartValue;
+		public string TotalCartValue
+		{
+			get => totalCartValue;
+			set => SetProperty(ref totalCartValue, value);
+		}
 
 		public ItemsViewModel()
 		{
-			Title = "Browse";
-			Items = new ObservableCollection<Item>();
-			LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-			ItemTapped = new Command<Item>(OnItemSelected);
-
-			AddItemCommand = new Command(OnAddItem);
+			Title = "Cart";
+			CartsList = new ObservableCollection<Models.MenuItem>();
 		}
 
-		async Task ExecuteLoadItemsCommand()
-		{
-			IsBusy = true;
 
-			try
-			{
-				Items.Clear();
-				var items = await DataStore.GetItemsAsync(true);
-				foreach (var item in items)
-				{
-					Items.Add(item);
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
 
 		public void OnAppearing()
 		{
-			IsBusy = true;
-			SelectedItem = null;
-		}
-
-		public Item SelectedItem
-		{
-			get => _selectedItem;
-			set
+			var sumOfCost = 0.0;
+			if(CartsList != null && CartsList.Count > 0)
 			{
-				SetProperty(ref _selectedItem, value);
-				OnItemSelected(value);
+				foreach(var item in CartsList)
+				{
+					sumOfCost += item.Price;
+				}
 			}
-		}
-
-		private async void OnAddItem(object obj)
-		{
-			await Shell.Current.GoToAsync(nameof(NewItemPage));
-		}
-
-		async void OnItemSelected(Item item)
-		{
-			if (item == null)
-				return;
-
-			// This will push the ItemDetailPage onto the navigation stack
-			await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+			TotalCartValue = sumOfCost.ToString();
 		}
 	}
 }
